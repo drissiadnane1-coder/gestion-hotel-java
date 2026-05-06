@@ -1,10 +1,10 @@
 package controller;
 
-import dao.UtilisateurDAO;
-import view.LoginView;
-import view.DashboardView;
-
 import javax.swing.JOptionPane;
+
+import dao.UtilisateurDAO;
+import view.DashboardView;
+import view.LoginView;
 
 public class LoginController {
 
@@ -30,7 +30,7 @@ public class LoginController {
 
             DashboardView dashboard = new DashboardView();
             dashboard.setVisible(true);
-        
+
         } else {
             JOptionPane.showMessageDialog(loginView, "Username ou password incorrect !");
         }

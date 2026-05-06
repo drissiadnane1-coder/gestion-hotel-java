@@ -1,7 +1,10 @@
 package controller;
 
 import view.ClientMenuView;
-import view.ClientView;
+import view.AjouterClientView;
+import view.ModifierClientView;
+import view.SupprimerClientView;
+import view.AfficherClientView;
 
 public class ClientMenuController {
 
@@ -10,15 +13,28 @@ public class ClientMenuController {
     public ClientMenuController(ClientMenuView menuView) {
         this.menuView = menuView;
 
-        menuView.ajouterButton.addActionListener(e -> ouvrirClientView());
-        menuView.modifierButton.addActionListener(e -> ouvrirClientView());
-        menuView.supprimerButton.addActionListener(e -> ouvrirClientView());
-        menuView.afficherButton.addActionListener(e -> ouvrirClientView());
-    }
+        menuView.ajouterButton.addActionListener(e -> {
+            AjouterClientView view = new AjouterClientView();
+            new AjouterClientController(view);
+            view.setVisible(true);
+        });
 
-    private void ouvrirClientView() {
-        ClientView clientView = new ClientView();
-        new ClientController(clientView);
-        clientView.setVisible(true);
+        menuView.modifierButton.addActionListener(e -> {
+            ModifierClientView view = new ModifierClientView();
+            new ModifierClientController(view);
+            view.setVisible(true);
+        });
+
+        menuView.supprimerButton.addActionListener(e -> {
+            SupprimerClientView view = new SupprimerClientView();
+            new SupprimerClientController(view);
+            view.setVisible(true);
+        });
+
+        menuView.afficherButton.addActionListener(e -> {
+            AfficherClientView view = new AfficherClientView();
+            new AfficherClientController(view);
+            view.setVisible(true);
+        });
     }
 }
