@@ -21,9 +21,15 @@ public class SupprimerClientController {
         try {
             int id = Integer.parseInt(view.idField.getText());
 
-            dao.supprimerClient(id);
-            JOptionPane.showMessageDialog(view, "Client supprimé avec succès !");
-            view.dispose();
+            int rowsAffecter = dao.supprimerClient(id);
+            
+            if(rowsAffecter == 0) {
+                JOptionPane.showMessageDialog(view, "Aucun client trouvé avec cet ID !", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(view, "Client supprimé avec succès !");
+                view.dispose();           	
+            }
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(view, "ID invalide !");

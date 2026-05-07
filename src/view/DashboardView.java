@@ -1,11 +1,13 @@
 package view;
 
 import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import controller.ChambreMenuController;
 import controller.ClientMenuController;
+import controller.ReservationMenuController;
 
 public class DashboardView extends JFrame {
 
@@ -49,6 +51,15 @@ public class DashboardView extends JFrame {
         reservationsButton = new JButton("Gestion Réservations");
         reservationsButton.setBounds(100, 150, 180, 30);
         add(reservationsButton);
+        
+        reservationsButton.addActionListener(e -> {
+
+            ReservationMenuView menuView = new ReservationMenuView();
+
+            new ReservationMenuController(menuView);
+
+            menuView.setVisible(true);
+        });
 
         paiementsButton = new JButton("Gestion Paiements");
         paiementsButton.setBounds(100, 190, 180, 30);

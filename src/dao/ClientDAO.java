@@ -67,7 +67,7 @@ public class ClientDAO {
         return clients;
     }
 
-    public void modifierClient(Client client) {
+    public int modifierClient(Client client){
         String sql = "UPDATE clients SET nom=?, prenom=?, telephone=?, email=?, adresse=?, pieceIdentite=? WHERE id=?";
 
         try {
@@ -82,16 +82,18 @@ public class ClientDAO {
             ps.setString(6, client.getPieceIdentite());
             ps.setInt(7, client.getId());
 
-            ps.executeUpdate();
+            
             System.out.println("Client modifié avec succès !");
+            return ps.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("Erreur lors de la modification du client !");
             e.printStackTrace();
+            return e.getErrorCode();
         }
     }
 
-    public void supprimerClient(int id) {
+    public int supprimerClient(int id) {
         String sql = "DELETE FROM clients WHERE id=?";
 
         try {
@@ -100,12 +102,14 @@ public class ClientDAO {
 
             ps.setInt(1, id);
 
-            ps.executeUpdate();
+            
             System.out.println("Client supprimé avec succès !");
+            return ps.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("Erreur lors de la suppression du client !");
             e.printStackTrace();
+            return e.getErrorCode();
         }
     }
 }

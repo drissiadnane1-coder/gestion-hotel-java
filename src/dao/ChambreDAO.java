@@ -65,7 +65,7 @@ public class ChambreDAO {
         return chambres;
     }
 
-    public void modifierChambre(Chambre chambre) {
+    public int modifierChambre(Chambre chambre) {
         String sql = "UPDATE chambres SET numero=?, type=?, etage=?, prixParNuit=?, statut=? WHERE id=?";
 
         try {
@@ -79,16 +79,18 @@ public class ChambreDAO {
             ps.setString(5, chambre.getStatut());
             ps.setInt(6, chambre.getId());
 
-            ps.executeUpdate();
+            
             System.out.println("Chambre modifiée avec succès !");
+            return ps.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("Erreur lors de la modification de la chambre !");
             e.printStackTrace();
+            return e.getErrorCode();
         }
     }
 
-    public void supprimerChambre(int id) {
+    public int supprimerChambre(int id) {
         String sql = "DELETE FROM chambres WHERE id=?";
 
         try {
@@ -97,12 +99,14 @@ public class ChambreDAO {
 
             ps.setInt(1, id);
 
-            ps.executeUpdate();
+            
             System.out.println("Chambre supprimée avec succès !");
+            return ps.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("Erreur lors de la suppression de la chambre !");
             e.printStackTrace();
+            return e.getErrorCode();
         }
     }
 }

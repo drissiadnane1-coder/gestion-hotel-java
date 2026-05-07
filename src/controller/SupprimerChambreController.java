@@ -21,9 +21,16 @@ public class SupprimerChambreController {
         try {
             int id = Integer.parseInt(view.idField.getText());
 
-            dao.supprimerChambre(id);
-            JOptionPane.showMessageDialog(view, "Chambre supprimée avec succès !");
-            view.dispose();
+            int rowsAffecter = dao.supprimerChambre(id);
+            
+            if(rowsAffecter == 0) {
+                JOptionPane.showMessageDialog(view, "Aucun client trouvé avec cet ID !", "Erreur", JOptionPane.ERROR_MESSAGE);            	
+            }
+            else {
+            	JOptionPane.showMessageDialog(view, "Chambre supprimée avec succès !");
+            	view.dispose();
+            }
+            
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(view, "ID invalide !");

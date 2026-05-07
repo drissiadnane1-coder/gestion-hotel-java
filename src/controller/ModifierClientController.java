@@ -30,9 +30,14 @@ public class ModifierClientController {
                 view.pieceIdentiteField.getText()
             );
 
-            dao.modifierClient(client);
-            JOptionPane.showMessageDialog(view, "Client modifié avec succès !");
-            view.dispose();
+            int rowsAffecter = dao.modifierClient(client);
+
+            if (rowsAffecter == 0) {
+                JOptionPane.showMessageDialog(view, "Aucun client trouvé avec cet ID !", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(view, "Client modifié avec succès !");
+                view.dispose();
+            }
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(view, "ID invalide !");

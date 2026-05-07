@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +21,11 @@ public class ReservationDAO {
 
             ps.setInt(1, reservation.getClientId());
             ps.setInt(2, reservation.getChambreId());
-            ps.setDate(3, reservation.getDateDebut());
-            ps.setDate(4, reservation.getDateFin());
+            
+            // CONVERSION : LocalDate -> java.sql.Date
+            ps.setDate(3, java.sql.Date.valueOf(reservation.getDateDebut()));
+            ps.setDate(4, java.sql.Date.valueOf(reservation.getDateFin()));
+            
             ps.setString(5, reservation.getStatut());
 
             ps.executeUpdate();
@@ -45,12 +47,13 @@ public class ReservationDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                // CONVERSION : java.sql.Date -> LocalDate (.toLocalDate())
                 Reservation r = new Reservation(
                     rs.getInt("id"),
                     rs.getInt("client_id"),
                     rs.getInt("chambre_id"),
-                    rs.getDate("date_debut"),
-                    rs.getDate("date_fin"),
+                    rs.getDate("date_debut").toLocalDate(), // Modifié ici
+                    rs.getDate("date_fin").toLocalDate(),   // Modifié ici
                     rs.getString("statut")
                 );
 

@@ -29,9 +29,16 @@ public class ModifierChambreController {
                 view.statutField.getText()
             );
 
-            dao.modifierChambre(chambre);
-            JOptionPane.showMessageDialog(view, "Chambre modifiée avec succès !");
-            view.dispose();
+            int rowsAffecter = dao.modifierChambre(chambre);
+            
+            if(rowsAffecter == 0) {
+                JOptionPane.showMessageDialog(view, "Aucun client trouvé avec cet ID !", "Erreur", JOptionPane.ERROR_MESSAGE);           	
+            }
+            else {
+                JOptionPane.showMessageDialog(view, "Chambre modifiée avec succès !");
+                view.dispose();     	
+            }
+
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(view, "ID, étage ou prix invalide !");
