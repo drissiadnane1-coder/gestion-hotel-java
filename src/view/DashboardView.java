@@ -1,13 +1,15 @@
 package view;
 
-import javax.swing.JButton;
+import javax.swing.JButton;	
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import controller.ChambreMenuController;
 import controller.ClientMenuController;
 import controller.ReservationMenuController;
+import controller.PaiementMenuController;
 
 public class DashboardView extends JFrame {
 
@@ -64,13 +66,35 @@ public class DashboardView extends JFrame {
         paiementsButton = new JButton("Gestion Paiements");
         paiementsButton.setBounds(100, 190, 180, 30);
         add(paiementsButton);
+        
+        paiementsButton.addActionListener(e -> {
 
-        hotelButton = new JButton("Infos Hôtel");
-        hotelButton.setBounds(100, 230, 180, 30);
-        add(hotelButton);
+            PaiementMenuView menuView = new PaiementMenuView();
+
+            new PaiementMenuController(menuView);
+
+            menuView.setVisible(true);
+        });
+
 
         logoutButton = new JButton("Déconnexion");
         logoutButton.setBounds(100, 270, 180, 30);
         add(logoutButton);
+        logoutButton.addActionListener(e -> {
+            // 1. Demander confirmation avant de tout fermer
+            int choix = JOptionPane.showConfirmDialog(
+                    this, 
+                    "Êtes-vous sûr de vouloir quitter l'application ?",
+                    "Confirmation de sortie",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE // Icône d'avertissement
+            );
+
+            // 2. Si l'utilisateur clique sur "Oui"
+            if (choix == JOptionPane.YES_OPTION) {
+                // Arrête immédiatement l'exécution de tout le programme Java
+                System.exit(0); 
+            }
+        });
     }
 }

@@ -25,13 +25,27 @@ public class ModifierReservationController {
 
     private void modifierReservation() {
 
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     	    
 
     	
         try {
        	 LocalDate dateDebut = LocalDate.parse(view.dateDebutField.getText().trim(), formatter);
        	 LocalDate dateFin = LocalDate.parse(view.dateFinField.getText().trim(), formatter);
+       	int clientId = Integer.parseInt(view.clientIdField.getText());
+        int chambreId = Integer.parseInt(view.chambreIdField.getText());
+
+        // 1. Vérification du Client
+        if (!dao.clientExiste(clientId)) {
+            JOptionPane.showMessageDialog(view, "Erreur : Le Client ID " + clientId + " n'existe pas !", "Client Inconnu", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // 2. Vérification de la Chambre
+        if (!dao.chambreExiste(chambreId)) {
+            JOptionPane.showMessageDialog(view, "Erreur : La Chambre ID " + chambreId + " n'existe pas !", "Chambre Inconnue", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         	
             Reservation reservation = new Reservation(
                     Integer.parseInt(view.clientIdField.getText()),

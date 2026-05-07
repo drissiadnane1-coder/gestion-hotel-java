@@ -31,6 +31,18 @@ public class AjouterReservationController {
         try {
        	 LocalDate dateDebut = LocalDate.parse(view.dateDebutField.getText().trim(), formatter);
        	 LocalDate dateFin = LocalDate.parse(view.dateFinField.getText().trim(), formatter);
+       	int clientId = Integer.parseInt(view.clientIdField.getText());
+        int chambreId = Integer.parseInt(view.chambreIdField.getText());
+
+        if (!dao.clientExiste(clientId)) {
+            JOptionPane.showMessageDialog(view, "Erreur : Le Client ID " + clientId + " n'existe pas !", "Client Inconnu", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!dao.chambreExiste(chambreId)) {
+            JOptionPane.showMessageDialog(view, "Erreur : La Chambre ID " + chambreId + " n'existe pas !", "Chambre Inconnue", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         	
             Reservation reservation = new Reservation(
                     Integer.parseInt(view.clientIdField.getText()),
